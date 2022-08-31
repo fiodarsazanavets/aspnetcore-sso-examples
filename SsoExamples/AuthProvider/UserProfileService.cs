@@ -43,10 +43,10 @@ namespace AuthProvider
             if (usersManager.SupportsUserRole)
             {
                 foreach (var roleName in await
-                usersManager.GetRolesAsync(user))
+                    usersManager.GetRolesAsync(user))
                 {
                     claimsList.Add(new
-                    Claim(JwtClaimTypes.Role, roleName));
+                        Claim(JwtClaimTypes.Role, roleName));
 
                     // Add a special claim for an admin user
                     if (roleName == "admin")

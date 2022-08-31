@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -44,6 +43,6 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapRazorPages();
+app.MapRazorPages().RequireAuthorization();
 
 app.Run();

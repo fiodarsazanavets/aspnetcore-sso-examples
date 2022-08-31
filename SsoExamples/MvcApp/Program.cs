@@ -1,15 +1,55 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using System.Security.Claims;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+})
+.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
+.AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
+{
+    options.SignInScheme = "Cookies";
+    options.Authority = "https://localhost:5001/";
+    options.RequireHttpsMetadata = true;
+    options.ClientId = "aspNetCoreAuth";
+    options.ClientSecret = "some_secret";
+    options.ResponseType = "code";
+    options.UsePkce = true;
+    options.SaveTokens = true;
+    options.CallbackPath = "/signin-oidc";
+    options.RequireHttpsMetadata = false;
+    options.GetClaimsFromUserInfoEndpoint = true;
+    options.Events.OnUserInformationReceived = context =>
+    {
+        var roleElement = context.User.RootElement.GetProperty("role");
+
+        var claims = new List<Claim>();
+        if (roleElement.ValueKind == System.Text.Json.JsonValueKind.Array)
+            foreach (var r in roleElement.EnumerateArray())
+                claims.Add(new Claim(ClaimTypes.Role, r.GetString()));
+        else
+            claims.Add(new Claim(ClaimTypes.Role, roleElement.GetString()));
+
+        var id = context.Principal.Identity as ClaimsIdentity;
+        id.AddClaims(claims);
+
+        return Task.CompletedTask;
+    };
+});
+
+builder.Services.AddAuthorization();
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -18,6 +58,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

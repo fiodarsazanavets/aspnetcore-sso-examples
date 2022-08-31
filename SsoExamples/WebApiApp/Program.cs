@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -23,3 +26,27 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public class RoleRequirement : AuthorizationHandler<RoleRequirement>,
+    IAuthorizationRequirement
+{
+    private readonly string requiredRole;
+
+    public RoleRequirement(string requiredRole)
+    {
+        this.requiredRole = requiredRole;
+    }
+
+    protected override Task HandleRequirementAsync(AuthorizationHandlerContext context,
+        RoleRequirement requirement)
+    {
+        var roles = ((ClaimsIdentity)context.User.Identity).Claims
+            .Where(c => c.Type == ClaimTypes.Role)
+            .Select(c => c.Value);
+
+        if (roles.Contains(requiredRole))
+            context.Succeed(requirement);
+
+        return Task.CompletedTask;
+    }
+}

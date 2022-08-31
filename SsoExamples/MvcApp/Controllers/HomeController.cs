@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MvcApp.Models;
 using System.Diagnostics;
 
@@ -13,6 +15,7 @@ namespace MvcApp.Controllers
             _logger = logger;
         }
 
+        [Authorize(Roles = "admin")]
         public IActionResult Index()
         {
             return View();
@@ -21,6 +24,16 @@ namespace MvcApp.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            foreach (var cookie in Request.Cookies.Keys)
+            {
+                Response.Cookies.Delete(cookie);
+            }
+            return RedirectToAction("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
