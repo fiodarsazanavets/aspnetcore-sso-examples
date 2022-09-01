@@ -3,22 +3,33 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MvcApp.Models;
 using System.Diagnostics;
+using System.Net.Http.Headers;
 
 namespace MvcApp.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IHttpClientFactory _clientFactory;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IHttpClientFactory clientFactory)
         {
             _logger = logger;
+            _clientFactory = clientFactory;
         }
 
         [Authorize(Roles = "admin")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+            var client = _clientFactory.CreateClient("webApi");
+            client.DefaultRequestHeaders.Authorization = 
+                new AuthenticationHeaderValue("Bearer", accessToken);
+
+            var response = await client.GetAsync("WeatherForecast");
+            var data = await response.Content.ReadFromJsonAsync<IEnumerable<WeatherForecast>>();
+
+            return View(data);
         }
 
         public IActionResult Privacy()

@@ -4,6 +4,11 @@ using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddHttpClient("webApi", httpClient =>
+{
+    httpClient.BaseAddress = new Uri("https://localhost:7239");
+});
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
