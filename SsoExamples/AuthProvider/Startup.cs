@@ -17,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Reflection;
+using Microsoft.Extensions.Logging;
 
 namespace AuthProvider
 {
@@ -108,6 +109,15 @@ namespace AuthProvider
 
             services.UseAdminUI();
             services.AddScoped<IdentityExpressDbContext, SqliteIdentityDbContext>();
+
+            services.AddSingleton<ICorsPolicyService>((container) => {
+                var logger = container.GetRequiredService<ILogger<DefaultCorsPolicyService>>();
+                return new DefaultCorsPolicyService(logger)
+                {
+                    AllowAll = true
+                };
+            });
+
             services.AddScoped<IProfileService, UserProfileService>();
         }
 
