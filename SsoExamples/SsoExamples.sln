@@ -9,17 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiApp", "WebApiApp\WebA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthProvider", "AuthProvider\AuthProvider.csproj", "{516871E7-477F-4D05-9343-29BBA4196F02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcApp", "MvcApp\MvcApp.csproj", "{ABB73EAB-677B-49F9-A693-C969845C672D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvcApp", "MvcApp\MvcApp.csproj", "{ABB73EAB-677B-49F9-A693-C969845C672D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorServerApp", "BlazorServerApp\BlazorServerApp.csproj", "{0A31ADF0-CA99-49C0-86A0-8D9E2CDE1948}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorServerApp", "BlazorServerApp\BlazorServerApp.csproj", "{0A31ADF0-CA99-49C0-86A0-8D9E2CDE1948}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWebAssemblyApp", "BlazorWebAssemblyApp\BlazorWebAssemblyApp.csproj", "{BA0D5514-0359-4868-84AF-AC9F4A5BBEEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWebAssemblyApp", "BlazorWebAssemblyApp\BlazorWebAssemblyApp.csproj", "{BA0D5514-0359-4868-84AF-AC9F4A5BBEEC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcServerApp", "GrpcServerApp\GrpcServerApp.csproj", "{D4889B39-1E39-48AC-89CC-CE9FA0640D05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GrpcServerApp", "GrpcServerApp\GrpcServerApp.csproj", "{D4889B39-1E39-48AC-89CC-CE9FA0640D05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRServerApp", "SignalRServerApp\SignalRServerApp.csproj", "{33310247-5FBB-40C7-8D42-5223DA5A16D5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcClientApp", "GrpcClientApp\GrpcClientApp.csproj", "{4FEA2CB3-AA0B-4F6D-8C93-CFEB79530A7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRServerApp", "SignalRServerApp\SignalRServerApp.csproj", "{33310247-5FBB-40C7-8D42-5223DA5A16D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,10 +57,6 @@ Global
 		{33310247-5FBB-40C7-8D42-5223DA5A16D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33310247-5FBB-40C7-8D42-5223DA5A16D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33310247-5FBB-40C7-8D42-5223DA5A16D5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4FEA2CB3-AA0B-4F6D-8C93-CFEB79530A7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4FEA2CB3-AA0B-4F6D-8C93-CFEB79530A7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4FEA2CB3-AA0B-4F6D-8C93-CFEB79530A7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4FEA2CB3-AA0B-4F6D-8C93-CFEB79530A7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
