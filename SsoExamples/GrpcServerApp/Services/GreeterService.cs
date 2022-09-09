@@ -1,5 +1,6 @@
 using Grpc.Core;
 using GrpcServerApp;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GrpcServerApp.Services
 {
@@ -11,6 +12,7 @@ namespace GrpcServerApp.Services
             _logger = logger;
         }
 
+        [Authorize]
         public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
         {
             return Task.FromResult(new HelloReply
